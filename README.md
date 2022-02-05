@@ -398,3 +398,8 @@ Questions:
 CONSTRAINT pk_QUESTIONS primary key (QuestionID, ExamEvaluationID),
     	CONSTRAINT fk_QUESTIONS_EVALUATION foreign key (ExamEvaluationID) references EVALUATION(EvaluationID)
 
+
+MOODLE EER DIAGRAM:
+
+![finalMoodleson drawio](https://user-images.githubusercontent.com/71318378/152635767-64c996f8-416e-4a33-89ff-62df260fe930.png)
+
