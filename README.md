@@ -88,7 +88,7 @@ Major, Salary, TeacherID
 
 ADMINISTRATOR:
 
-------------
+-
 
 ASSISTANT:
 
@@ -169,85 +169,161 @@ SkillID, Skill Name, UserID
 LINKEDIN ANALYSIS AND DESIGN:
 
 Key Entities:
+
 Users -> User must be a company or a person account
+
 Company -> Company account where people work and can offer people an optional job
+
 Person -> Person accounts that have worked or are working somewhere, have hobbies, skills, certificates; graduated from a school, etc.
+
 Posts –> shared, liked, saved, commented by the user
+
 Forum-> where posts are shared
+
 Job Alert- offer that companies can create and that can be accepted by the user
+
 Experience -> shows the experience of employees in companies
+
 Group -> users can create a new group or join already created groups
+
 Skill -> users can have many skills
+
 Hobby -> users may have multiple hobbies
+
 Certificate-> The user may have gained a certificate because of various evaluations.
 
+
 What are the characteristics of each entity?
+
 USERS
+
 •	E-mail
+
 •	UserID
+
 •	Password
+
 •	Phone
+
 •	Address
+
+
 The user can be a person, a company:
+
 	PERSON
+	
 •	Person ID -PK
+
 •	Person’s Name (FName, Minit, LName)
+
 •	Date of Birth
+
 •	Sex
+
 •	CV
+
 COMPANY
+
 •	CompanyName
+
 •	EmployeeNumber
+
 POST
+
 The users can post something with others, or like or comment on others’ posts.
+
 •	Post-ID
+
 •	ContentType
+
 •	PostedDate
+
 GROUP
+
 The user can create a group or join another group.
+
 •	G-ID (Group-ID)
+
 •	GroupName
+
 •	MemberNo
+
 COURSE
+
 The user can take a course or give a course to another people.
+
 •	CCode (CourseCode)
+
 •	CourName(CourseName)
+
 •	Level
+
 CERTIFICATE
+
 The user can earn certificate. 
+
 •	Cer-ID (Certificate ID)
+
 •	CourseID
+
 •	UserID
+
 •	CerDate(Certificate Date)
+
 •	CerName(Certificate Name)
+
 SKILL 
+
 The user can have skills, skills have id and name.
+
 •	SkID(Skill ID)
+
 •	SName(Skill Name)
+
 HOBBY
+
 The user also can have hobbies.
+
 •	H-ID(HobbyID)
+
 •	HName(HobbyName)
+
 
 
 What relationships exists among the entities? 
 The user must have a company or person type.  Companies can create job offers and people can view this offer. Users can share, like, save or comment as many posts as they want. Users can follow or send to messages to other users.  Also, persons can create a group or can be member of others’ groups. Person also can have certificate, skills, or hobbies.  Person can have experience with companies.
 	COMPANY 1 CREATE N EXPERIENCE
+	
 	PERSON M VIEW N EXPERIENCE
+	
 	COMPANY 1 CREATE N JOB_AD
+	
 	JOB_AD N VIEW M PERSON
+	
 	PERSON 1 CREATE N GROUP
+	
 	GROUP M MEMBER_OF N PERSON
+	
 	PERSON N TAKES M COURSE
+	
 	COURSE N GIVES 1 PERSON
+	
 	PERSON N HAS M CERTIFICATE
+	
 	PERSON N SKILLS M SKILL
+	
 	USER N MESSAGES M
+	
 	USER N FOLLOWS M
+	
 	USER N LIKES M POST
+	
 	USER 1 POSTS N POST
+	
 	USER N COMMENTS M POST
+	
 	USER N SAVES M POST 
+	
 
 
 What are the constraints related to entities, their characteristics and the relationships among them? 
