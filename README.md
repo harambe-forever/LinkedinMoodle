@@ -185,3 +185,13 @@ CONSTRAINT pk_HAS primary key (HobbysPersonUserID, HHobbyID),
     	CONSTRAINT fk_HAS_PERSON foreign key (HobbysPersonUserID) references PERSON(PersonUserID),
     	CONSTRAINT fk_HAS_HOBBY foreign key (HHobbyID) references HOBBY(HobbyID)
 
+EER DIAGRAM FOR LINKEDIN MODEL
+
+![LinkedIn drawio](https://user-images.githubusercontent.com/71318378/152635520-b02ce144-7258-4530-83ed-7bf71deee88b.png)
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+MOODLE ANALYSIS AND DESIGN
+
