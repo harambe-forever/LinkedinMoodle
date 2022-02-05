@@ -164,6 +164,336 @@ HobbyID, Hobby Name, UserID
 SkillID, Skill Name, UserID
 
 
+RELATIONAL MODEL MAPPING: 
+
+
+1st Iteration
+
+STEP 1 MAPPING OF REGULAR ENTITY TYPES:
+
+•	FORUM ( Forum Title, CreatorID) creator id taaa user Id’ye kadar uzanan bir fk
+
+•	POST (Post ID, Content Type) 
+
+•	SKILL (Skill ID, Skill Name, Person ID) person ID, person’daki PersonID’ye uzanan bir fk
+
+•	HOBBY (Hobby ID, Hobby Name, Person ID) aynı mantık
+
+•	CERTIFICATE (Certificate ID, Certificate Name, Given Date, Course ID, Person ID) Course ID ve Person ID FK
+
+•	GROUP  (Group ID, Group Name, Member No)
+
+•	COURSE (Course Code, Course Name, Description, Level, CreditHours)
+
+•	CONTENT (Content No, File Type, Up Date, Down Date, Uploader ID) dervied attribute sor
+
+•	FEEDBACK (Feedback ID, Content)
+
+
+STEP 2 MAPPING OF WEAK ENTITY TYPES
+
+-
+
+STEP 3 MAPPING OF 1:1
+
+-
+
+STEP 4 MAPPING OF 1:N
+
+•	Post M POSTED 1 Forum
+
+o	POST (Post ID, Content Type, Forum Title, Posted Date) forum title, forum’dan gelen bir foreign key, post update edilmiştir.
+
+•	Course 1 Contains M Content
+
+o	CONTENT (Content No, File Type, Up Date, Down Date, Uploader ID, Course Code), course code, course’dan gelen bir foreign key, content update edilmiştir.
+
+STEP 5 MAPPING OF M:N
+
+-
+
+STEP 6 MAPPING OF Multivalues Attributes
+
+-
+
+STEP 7 MAPPING OF Ternary 
+
+-
+
+STEP 8 MAPPING OF Multiple Relations and stuff
+
+-Mandatory, disjoint (USER)
+
+8.A ile yapacak olursak:
+
+Superclass’ın PK’ini alıyorsun, Subclass’ın Attribute’u olarak yazıyorsun FK olacak şekilde. Subclass’ın Key attribute’u, kendisinin PK’I olacak
+
+USER:	
+
+(User ID, Password, E-Mail, multival attr var unutma)
+
+COMPANY:
+
+	(Company User ID, Company Name, EmployeeNumber)
+	
+PERSON: 
+
+	(Person User ID, FName, Minit, LName, DoB, Sex, Cv, Person Type)
+	
+
+8B
+
+COMPANY(User ID, Password, E-Mail, multival attr var unutma, CompanyName, EmployeeNumber)
+
+PERSON(User ID, Password, E-Mail, multival attr var unutma, FName, Minit, LName, DoB, Sex, Cv, Person Type)
+
+
+STEP 9 MAPPING OF UNION TYPES
+
+-
+
+2nd Iteration
+
+STEP 1 MAPPING OF REGULAR ENTITY TYPES:
+
+-
+STEP 2 MAPPING OF WEAK ENTITY TYPES
+
+•	JOB ALERT (Alert ID, Company Alert User ID, Job Position, Job Location, Job Title, Job Description)
+
+•	EXPERIENCE (Company Name, Experience Person User ID, Position, Start Date, End Date)
+
+STEP 3 MAPPING OF 1:1
+
+-
+STEP 4 MAPPING OF 1:N
+
+•	POST (Post ID, Content Type, Forum Title, User ID) 
+
+•	GROUP (Group ID, Group Name, Member No, Person User ID) 
+
+•	CONTENT (Content No, File Type, Up Date, Down Date, Uploader ID, CourseCode)
+
+STEP 5 MAPPING OF M:N
+
+•	Company M Creates N Experience
+
+o	CREATES(Company Name, PersonUserIDExperience, CompanyUserID)
+
+•	User M Messages N User
+
+o	MESSAGES(SenderUserID, ReceiverUserID, MTime, Text, MType) //unary many to many
+
+•	User M Follows N User
+
+o	FOLLOWS(FollowerUserID, FollowedUserID, FollowTime)
+
+
+•	Post N Comments M User
+
+o	COMMENTS(UserID, PostID)
+
+
+•	Post N Saves M User
+
+o	SAVES(UserID, PostID) 
+
+•	Post N Likes M User
+
+o	LIKES(UserID, PostID) 
+
+
+•	Person M Skills N Skill
+
+o	SKILLS(PersonID, SkillID) 
+
+
+•	Person M Has N Hobby
+
+o	HAS(PersonID, HobbyID) 
+
+
+
+•	Person M Earns N Certificate
+
+o	EARNS(PersonID, CertificateID)
+
+
+•	Person M MemberOf N Group
+
+o	MEMBER_OF(PersonID, GroupID
+
+
+•	Person M View N Job Alert
+
+o	VIEW(PersonID, AlertID)
+
+
+STEP 6 MAPPING OF Multivalues Attributes
+
+•	USER_PHONE(UserID, UserPhone )
+
+•	USER_ADDRESS(UserID, UserAddress )
+
+STEP 7 MAPPING OF Ternary 
+
+-
+
+STEP 8 MAPPING OF Multiple Relations and stuff
+
+-Mandatory, disjoint (PERSON)
+
+8A:
+
+ADMINISTRATOR(UserID)
+
+TEACHING_STAFF(UserID, DateGiven, CollegeObtained)
+
+STUDENT(UserID, GPA)
+
+STEP 9 MAPPING OF UNION TYPES
+
+-
+
+
+
+3rd Iteration
+
+STEP 1 MAPPING OF REGULAR ENTITY TYPES:
+
+-
+
+STEP 2 MAPPING OF WEAK ENTITY TYPES
+
+-
+
+STEP 3 MAPPING OF 1:1
+
+-
+
+STEP 4 MAPPING OF 1:N
+
+•	FEEDBACK (Feedback ID, Content, StudentUserID) 
+
+STEP 5 MAPPING OF M:N
+
+•	Teaching Staff M Uploads N Content
+
+o	Uploads(TeachStaffID, ContentNo)
+
+STEP 6 MAPPING OF Multivalues Attributes
+
+-
+
+STEP 7 MAPPING OF Ternary 
+
+-
+
+STEP 8 MAPPING OF Multiple Relations and stuff
+
+8A:
+
+TEACHING_STAFF(UserID, DiplomaDateGiven, CollegeObtained, TeachStaffType)
+
+TEACHER(UserID, Major, Salary)
+
+ASSISTANT(UserID, Thesis)
+
+8A:
+
+EVALUATION(StudentUserID(studentID), EvaluationID, CourseID, GraderID, Grade, MakerID)
+
+ASSIGNMENT(UserID,EvaluationID, DueDate, NumberofAttempts)
+
+QUIZ(UserID, EvaluationID)
+
+---- 8b version
+
+8B
+
+TEACHER(UserID,  DateGiven, CollegeObtained,Major, Salary)
+
+ASSISTANT(UserID, DateGiven, CollegeObtained,Thesis)
+
+
+8B
+
+ASSIGNMENT(UserID,EvaluationID, StudentID, CourseID, GraderID, Grade, DueDate, NumberofAttempts)
+
+QUIZ(UserID, EvaluationID StudentID, CourseID, GraderID, Grade)
+
+STEP 9 MAPPING OF UNION TYPES
+
+-
+
+
+4th Iteration
+
+STEP 1 MAPPING OF REGULAR ENTITY TYPES:
+
+-
+STEP 2 MAPPING OF WEAK ENTITY TYPES
+
+QUESTIONS(QuestionID, ExamEvaluationID, QuestionType, Answers)
+
+STEP 3 MAPPING OF 1:1
+
+•	Evaluation 1 Grants 1 Certificate
+
+o	CERTIFICATE (Certificate ID, Certificate Name, Given Date, Course ID, Person ID, StudentUserID(studentUserID), EvaluationID, MakerID(teachingStaffID), 
+GraderID(teachingStaffID))
+
+STEP 4 MAPPING OF 1:N
+
+•	Teacher 1 Gives M Course
+
+o	COURSE (Course Code, Course Name, Description, Level, CreditHours, TeacherUserID) 
+
+o	 teacherID EER MODELDEN kaldırıldı, veri tekrarından dolayı ötürü.
+
+•	TeachingStaff 1 Makes N Evaluation
+
+o	EVALUATION(StudentUserID(studentUserID), EvaluationID, MakerID(teachingStaffID), CourseID, Grade)
+
+•	TeachingStaff 1 Grade M Evaluation
+
+o	EVALUATION(StudentUserID(studentUserID), EvaluationID, MakerID(teachingStaffID), CourseID, GraderID(teachingStaffID), Grade)
+
+Course 1 Has M Evaluation
+
+o	EVALUATION(StudentUserID(studentUserID), EvaluationID, MakerID(teachingStaffID), CourseID(courseCode), GraderID(teachingStaffID), Grade)
+
+
+•	Teacher 1 Receive M FeedBack
+
+o	FEEDBACK (Feedback ID, Content, StudentUserID, TeacherUserID) //RECEIVE
+
+STEP 5 MAPPING OF M:N
+
+•	Course M Enrolls N Student
+
+o	Enrolls(CourseCode, StudenUsertID) 
+
+•	Student M Take N Evaluation
+
+o	Take(StudentUserID, StudentUserID(studentUserID), EvaluationID, MakerID(teachingStaffID), CourseID(courseCode), GraderID(teachingStaffID))
+
+STEP 6 MAPPING OF Multivalues Attributes
+
+-
+
+STEP 7 MAPPING OF Ternary 
+
+-
+
+STEP 8 MAPPING OF Multiple Relations and stuff
+
+-
+
+STEP 9 MAPPING OF UNION TYPES
+
+
+
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 LINKEDIN ANALYSIS AND DESIGN:
