@@ -53,60 +53,116 @@ integration points for the database.
 LinkedinMoodle
 
 USER(ACCOUNT):
+
 AccountID, Password, Role, E-Mail
+
 PERSON:
+
 PersonID, Username(FName, Minit, LName), DOB, Address, Phone(Multival), Sex, Job, CV
+
 PERSON
+
 |				|				    |
+
 TEACHING STAFF	        ADMIN			              STUDENT
+
 |		|
+
 Teacher	Assistant
+
 MESSAGES:
+
 MType, MTime, Text
+
 FOLLOWS:
+
 FTime
+
 TEACHING STAFF:
+
 Diploma(Date Given, College Obtained)
+
 TEACHER:
+
 Major, Salary, TeacherID
+
 ADMINISTRATOR:
+
 ------------
+
 ASSISTANT:
+
 Thesis, AssistantID
+
 STUDENT:
+
 GPA
+
 COMPANY:
+
 CompanyID, CName, Address(Multival), Phone, EmployeeNumber
+
 EXPERIENCE: (weak entity)
+
 Start Date, End Date, Position
+
 JOB ALERT: (weak entity)
+
 AlertID, Job Position, Job Title, Job Description, Job Location
+
 GROUP:
+
 GroupID, Group Name, MemberNo (id falan gibi bir şey mi??)
+
 FORUM:
+
 Post ile bağlantılı, aralarıında bir relation var
+
 Forum Title, CreatorID
+
 POST:
+
 PostID, PosterID, ContentType (pdate , relationship üzerinde kaydedilecek)
+
 COURSE:
+
 CourseCode, CourseName, TeacherID, Description, Level, CreditHours
+
 CONTENT:
+
 UploaderID, ContentNo, UpDate, DownDate, (Availability Range), File Type
+
 EVALUATION:
+
 EvaluationID, StudentID, GraderID, Grade
+
 |				|
-Assignment		Quiz
+
+Assignment	
+
+Quiz
 ASSIGNMENT:
+
 Number Of Attempts, Due Date
+
 QUIZ:
+
 CERTIFICATE:
+
 Certificate Name, CourseID, UserID, GivenDate
+
 FEEDBACK:
+
 FeedbackID, Content
+
 HOBBY:
+
 HobbyID, Hobby Name, UserID
+
  SKILL:
+ 
 SkillID, Skill Name, UserID
+
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
