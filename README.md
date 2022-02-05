@@ -485,110 +485,216 @@ DATA REQUIREMENTS AND RELATIONSHIPS BETWEEN ENTITIES
 A person must have an account and an account must be bound to one person only. A person can message with another person as well. A person can share posts in forums and forums may have multiple people posting on them. If this person is a teacher, they may be giving more than one course, but a course must have only one teacher.  A teacher and assistants can upload contents to courses, naturally they can upload more than one content per course. Students can use these contents via downloading them. Accounts earn certificates. A certificate may be possessed by more than one person and a person may achieve more than one certificate. Administrators provide support and they contact with other group of people.
 Teachers will make evaluations for students. So, a course must have at least one of these evaluation tasks. And students are evaluated. Quizzes and assignments can be graded by both teacher and assistants. Both of these evaluation elements are made of multiple questions. These evaluation tasks are answered by students. A student may have more than one evaluation per course. Evaluations grant students, certificates.  After the exams are done, students get to give feedback about them. A teacher will receive these feedbacks. 
 PERSON	1	HAS	1	ACCOUNT	
+
 PERSON	M	EARNS	M	CERTIFICATE	
+
 PERSON	1	MESSAGES 1	PERSON
-PERSON	M	POSTS ON  M	FORUM	
+
+PERSON	M	POSTS ON  M	FORUM
+
 TEACHER	1	GIVES	M	COURSE	
-TEACHER	1	DOES	M	EVALUATIONS	
+
+TEACHER	1	DOES	M	EVALUATIONS
+
 TEACHER	1	UPLOADS M	CONTENT
+
 TEACHER	1	GRADES  M	EVALUATIONS
+
 TEACHER 	1	RECIEVES M	FEEDBACK
+
 ASSISTANT	1	GRADES  M	EVALUATIONS
+
 ASSISTANT	1	UPLOADS   M 	CONTENT
+
 STUDENTS 	1	TAKE	M	EVALUATIONS
+
 STUDENTS	M	USE	M	CONTENT
-STUDENTS 	M	ENROLL	 TO  M	COURSE            
+
+STUDENTS 	M	ENROLL	 TO  M	COURSE      
+
 STUDENTS 	1	GIVE	M	FEEDBACK
+
 ADMINISTRATORS M	SUPPORT M	PERSON ?????
+
 EVALUATIONS	M	GRANTS     1	CERTIFICATE
+
 EVALUATIONS     M	HAS	    M	QUESTIONS
+
 COURSE 		CONTAINS		CONTENT
+
 COURSE    		HAS 			EVALUATIONS
 
+
 Constraints:
+
 Users:
+
 	CONSTRAINT pk_USERS primary key (UserID),
+	
  CONSTRAINT uq_EMail UNIQUE (EMail)
+ 
 	PhoneNumber:
+	
 		CONSTRAINT pk_USER_PHONE primary key (PhoneUsersID, PhoneNumber),
+		
    		 CONSTRAINT pf_USER_PHONE_USERS foreign key (PhoneUsersID) references USERS(UserID)
+		 
 	Address:
+	
 		CONSTRAINT pk_USER_ADDRESS primary key (AddressUsersID, Address),
+		
    		 CONSTRAINT pf_USER_ADDRESS_USERS foreign key (AddressUsersID) references USERS(UserID)
+		 
 	Person:
+	
 CONSTRAINT pk_PERSON primary key (PersonUserID),
+
     		CONSTRAINT fk_PERSON_USERS foreign key (PersonUserID) references USERS(UserID)
+		
 	Messages:
+	
 CONSTRAINT pk_MESSAGES primary key (SenderUserID, RecieverUserID),
+
     		CONSTRAINT fk_MESSAGES_PERSON1 foreign key (SenderUserID) references PERSON(PersonUserID),
+		
     		CONSTRAINT fk_MESSAGES_PERSON2 foreign key (RecieverUserID) references PERSON(PersonUserID)
+		
 Administrator:
+
 	CONSTRAINT pk_ADMINISTRATOR primary key (AdminID),
+	
     	CONSTRAINT fk_ADMINISTRATOR_USERS foreign key (AdminID) references PERSON(PersonUserID)
+	
 Teaching Staff:
+
 	CONSTRAINT pk_TEACHING_STAFF primary key (TeachingUserID),
+	
     	CONSTRAINT fk_TEACHING_STAFF_USER foreign key (TeachingUserID) references PERSON(PersonUserID)
+	
 Student:
+
 	CONSTRAINT pk_STUDENT primary key (StudentUserID),
+	
     CONSTRAINT fk_STUDENT_USERS foreign key (StudentUserID) references Person(PersonUserID)
+    
 Teacher:
+
 	CONSTRAINT pk_TEACHER primary key (TeacherUserID),
+	
     	CONSTRAINT fk_TEACHER_USER foreign key (TeacherUserID) references TEACHING_STAFF(TeachingUserID)
+	
 Feedback:
+
 CONSTRAINT pk_FEEDBACK primary key (FeedbackID),
+
     	CONSTRAINT fk_FEEDBACK_STUDENT foreign key (SendingStudentUserID) references STUDENT(StudentUserID),
+	
     	CONSTRAINT fk_FEEDBACK_TEACHER foreign key (RecievingTeacherUserID) references TEACHER(TeacherUserID)
+	
 Assistant:
+
 	CONSTRAINT pk_ASSISTANT primary key (AssistantUserID),
+	
  	CONSTRAINT fk_ASSISTANT_USERS foreign key (AssistantUserID) references TEACHING_STAFF(TeachingUserID)
+	
 Course:
+
 	CONSTRAINT pk_COURSE primary key (CourseCode),
+	
  	CONSTRAINT fk_COURSE foreign key (CourseTeacherUserID) references TEACHER(TeacherUserID)
+	
 Content:
+
 CONSTRAINT pk_CONTENT primary key (ContentNo),
+
     	CONSTRAINT fk_CONTENT_TEACHING_STAFF foreign key (UploaderUserID) references TEACHING_STAFF(TeachingUserID)
+	
 Uploads:
+
 CONSTRAINT pk_UPLOADS primary key (UppingTeachingStaffUserID),
+
+
     	CONSTRAINT fk_UPLOADS_TEACHING_STAFF foreign key (UppedContentNo) references TEACHING_STAFF(TeachingUserID)
 Evaluation:
+
 CONSTRAINT pk_EVALUATION primary key (EvaluationID, TakingStudentUserID, MakerUserID, CourseID, GraderUserID),
+
     	CONSTRAINT fk_EVALUATION_TEACHING_STAFF1 foreign key (MakerUserID) references TEACHING_STAFF(TeachingUserID),
+	
     	CONSTRAINT fk_EVALUATION_TEACHING_STAFF2 foreign key (GraderUserID) references TEACHING_STAFF(TeachingUserID),
+	
+	
     	CONSTRAINT fk_EVALUATION_COURSE foreign key (CourseID) references COURSE(CourseCode),
+	
    	 CONSTRAINT fk_EVALUATION_STUDENT foreign key (TakingStudentUserID) references STUDENT(StudentUserID)
+	 
 Assignment:
+
 CONSTRAINT pk_ASSIGNMENT primary key (ATakingStudentUserID, AEvaluationID),
+
     	CONSTRAINT fk_ASSIGNMENT_STUDENT foreign key (ATakingStudentUserID) references STUDENT(StudentUserID),
+	
     	CONSTRAINT fk_ASSIGNMENT_EVALUATION foreign key (AEvaluationID) references EVALUATION(EvaluationID)
+	
 Quiz:
+
 CONSTRAINT pk_QUIZ primary key (QTakingStudentUserID, QEvaluationID),
+
     	CONSTRAINT fk_QUIZ_STUDENT foreign key (QTakingStudentUserID) references STUDENT(StudentUserID),
+	
     	CONSTRAINT fk_QUIZ_EVALUATION foreign key (QEvaluationID) references EVALUATION(EvaluationID)
+	
 Enrolls:
+
 CONSTRAINT pk_ENROLLS primary key (EnrolledCourseCode, EnrollingStudentUserID),
+
     	CONSTRAINT fk_ENROLLS_COURSE foreign key (EnrolledCourseCode) references COURSE(CourseCode),
+	
     	CONSTRAINT fk_ENROLLS_STUDENT foreign key (EnrollingStudentUserID) references STUDENT(StudentUserID)
+	
 Take:
+
 CONSTRAINT pk_TAKE primary key (TStudentUserID, TEvaluationID, EMakerID, EGraderID, EvalTakenCourseID),
+
     	CONSTRAINT fk_TAKE_STUDENT foreign key (TStudentUserID) references STUDENT(StudentUserID),
+	
     	CONSTRAINT fk_TAKE_EVALUATION foreign key (TEvaluationID) references EVALUATION(EvaluationID),
+	
     	CONSTRAINT fk_TAKE_TEACHING_STAFF1 foreign key (EMakerID) references TEACHING_STAFF(TeachingUserID),
+	
     	CONSTRAINT fk_TAKE_TEACHING_STAFF2 foreign key (EGraderID) references TEACHING_STAFF(TeachingUserID),
+	
     	CONSTRAINT fk_TAKE_COURSE foreign key (EvalTakenCourseID) references COURSE(CourseCode)
+	
 Certificate:
+
 CONSTRAINT pk_CERTIFICATE primary key (CertificateID),
+
    	 CONSTRAINT fk_CERTIFICATE_COURSE foreign key (CertificateCourseID) references COURSE(CourseCode),
+	 
     	CONSTRAINT fk_CERTIFICATE_STUDENT foreign key (CertificatedStudentUserID) references STUDENT(StudentUserID),
+	
     	CONSTRAINT fk_CERTIFICATE_EVALUATION foreign key (CertificatingEvaluationID) references EVALUATION(EvaluationID),
+	
     	CONSTRAINT fk_CERTIFICATE_TEACHING_STAFF1 foreign key (EMakerID) references TEACHING_STAFF(TeachingUserID),
+	
    	CONSTRAINT fk_CERTIFICATE_TEACHING_STAFF2 foreign key (EGraderID) references TEACHING_STAFF(TeachingUserID)
+	
 Earns:
+
 CONSTRAINT pk_EARNS primary key (EarningPersonUserID, EarnedCertificateID),
+
     	CONSTRAINT fk_EARNS_PERSON foreign key (EarningPersonUserID) references PERSON(PersonUserID),
+	
     	CONSTRAINT fk_EARNS_CERTIFICATE foreign key (EarnedCertificateID) references CERTIFICATE(CertificateID)
+	
 Questions:
+
 CONSTRAINT pk_QUESTIONS primary key (QuestionID, ExamEvaluationID),
+
     	CONSTRAINT fk_QUESTIONS_EVALUATION foreign key (ExamEvaluationID) references EVALUATION(EvaluationID)
+	
+	
 
 
 MOODLE EER DIAGRAM:
