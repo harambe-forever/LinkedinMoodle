@@ -328,54 +328,103 @@ The user must have a company or person type.  Companies can create job offers an
 
 What are the constraints related to entities, their characteristics and the relationships among them? 
 	CONSTRAINTS:
-	GRUP:
+	
+GRUP:
+	
 	CONSTRAINT pk_GRUP primary key (GroupID), CONSTRAINT fk_GRUP_PERSON foreign key (CreatorPersonUserID) references PERSON(PersonUserID)
-	MEMBER_OF:
+	
+MEMBER_OF:
+	
 	CONSTRAINT pk_MEMBER_OF primary key (MemberPersonUserID, MemberGroupID),
+	
     	CONSTRAINT fk_MEMBER_OF_PERSON foreign key (MemberPersonUserID) references PERSON(PersonUserID),
+	
   	CONSTRAINT fk_MEMBER_OF_GRUP foreign key (MemberGroupID) references GRUP(GroupID)
-	COMPANY:
+	
+COMPANY:
+	
 CONSTRAINT uq_CompanyName UNIQUE (CompanyName),
-  	CONSTRAINT pk_COMPANY primary key (CompanyUserID),
-    	CONSTRAINT fk_COMPANY_USERS foreign key (CompanyUserID) references USERS(UserID)
-EXPERIENCE:
-CONSTRAINT pk_EXPERIENCE primary key (Company, ExperienceUserID),
-    	CONSTRAINT fk_EXPERIENCE_COMPANY foreign key (Company) references COMPANY(CompanyUserID),
-   	 CONSTRAINT fk_EXPERIENCE_PERSON foreign key (ExperienceUserID) references PERSON(PersonUserID)
-JOB_ALERT:
-CONSTRAINT pk_JOB_ALERT primary key (AlertID, AlertingCompanyUserID),
-    	CONSTRAINT fk_JOB_ALERT_COMPANY foreign key (AlertingCompanyUserID) references COMPANY(CompanyUserID)
-	VIEW_ALERT:
-CONSTRAINT pk_VIEW_ALERT primary key (ViewingPersonID, ViewedAlertID),
-    CONSTRAINT fk_VIEW_ALERT_PERSON foreign key (ViewingPersonID) references PERSON(PersonUserID),
-    CONSTRAINT fk_VIEW_ALERT_JOB_ALERT foreign key (ViewedAlertID) references JOB_ALERT(AlertID)
-	FORUM:
-CONSTRAINT pk_FORUM primary key (ForumTitle),
-    	CONSTRAINT fk_FORUM_USERS foreign key (CreatorUserID) references USERS(UserID)
-	POST:
-CONSTRAINT pk_POST primary key (PostID),
-    	CONSTRAINT fk_POST_FORUM foreign key (ForumTitle) references FORUM(ForumTitle),
-    	CONSTRAINT fk_POST_USERS foreign key (PosterUserID) references USERS(UserID)
-COMMENTS:
-CONSTRAINT pk_COMMENTS primary key (CommentingUserID, CommentedPostID),
-    	CONSTRAINT fk_COMMENTS_USERS foreign key (CommentingUserID) references USERS(UserID)
-	SAVES:
-CONSTRAINT pk_SAVES primary key (SavingUserID, SavedPostID),
-    	CONSTRAINT fk_SAVES_USERS foreign key (SavingUserID) references USERS(UserID)
-LIKES:
-CONSTRAINT pk_LIKES primary key (LikingUserID, LikedPostID),
-    	CONSTRAINT fk_LIKES_USERS foreign key (LikingUserID) references USERS(UserID)
-	SKILL:
-CONSTRAINT pk_SKILL primary key (SkillID),
-    	CONSTRAINT fk_SKILL_USERS foreign key (SkillPersonUserID) references PERSON(PersonUserID)
 
-	HOBBY:
+  	CONSTRAINT pk_COMPANY primary key (CompanyUserID),
+	
+    	CONSTRAINT fk_COMPANY_USERS foreign key (CompanyUserID) references USERS(UserID)
+	
+	
+EXPERIENCE:
+
+CONSTRAINT pk_EXPERIENCE primary key (Company, ExperienceUserID),
+
+    	CONSTRAINT fk_EXPERIENCE_COMPANY foreign key (Company) references COMPANY(CompanyUserID),
+	
+   	 CONSTRAINT fk_EXPERIENCE_PERSON foreign key (ExperienceUserID) references PERSON(PersonUserID)
+	 
+JOB_ALERT:
+
+CONSTRAINT pk_JOB_ALERT primary key (AlertID, AlertingCompanyUserID),
+
+    	CONSTRAINT fk_JOB_ALERT_COMPANY foreign key (AlertingCompanyUserID) references COMPANY(CompanyUserID)
+	
+VIEW_ALERT:
+	
+CONSTRAINT pk_VIEW_ALERT primary key (ViewingPersonID, ViewedAlertID),
+
+    CONSTRAINT fk_VIEW_ALERT_PERSON foreign key (ViewingPersonID) references PERSON(PersonUserID),
+    
+    CONSTRAINT fk_VIEW_ALERT_JOB_ALERT foreign key (ViewedAlertID) references JOB_ALERT(AlertID)
+    
+FORUM:
+	
+CONSTRAINT pk_FORUM primary key (ForumTitle),
+
+    	CONSTRAINT fk_FORUM_USERS foreign key (CreatorUserID) references USERS(UserID)
+	
+POST:
+	
+CONSTRAINT pk_POST primary key (PostID),
+
+    	CONSTRAINT fk_POST_FORUM foreign key (ForumTitle) references FORUM(ForumTitle),
+	
+    	CONSTRAINT fk_POST_USERS foreign key (PosterUserID) references USERS(UserID)
+	
+COMMENTS:
+
+CONSTRAINT pk_COMMENTS primary key (CommentingUserID, CommentedPostID),
+
+    	CONSTRAINT fk_COMMENTS_USERS foreign key (CommentingUserID) references USERS(UserID)
+	
+SAVES:
+	
+CONSTRAINT pk_SAVES primary key (SavingUserID, SavedPostID),
+
+    	CONSTRAINT fk_SAVES_USERS foreign key (SavingUserID) references USERS(UserID)
+	
+LIKES:
+
+CONSTRAINT pk_LIKES primary key (LikingUserID, LikedPostID),
+
+    	CONSTRAINT fk_LIKES_USERS foreign key (LikingUserID) references USERS(UserID)
+	
+SKILL:
+	
+CONSTRAINT pk_SKILL primary key (SkillID),
+
+    	CONSTRAINT fk_SKILL_USERS foreign key (SkillPersonUserID) references PERSON(PersonUserID)
+	
+
+HOBBY:
+	
 CONSTRAINT pk_HOBBY primary key (HobbyID),
+
    	 CONSTRAINT fk_Hobby_USERS foreign key (HobbyPersonUserID) references PERSON(PersonUserID)
+	 
 HAS:
+
 CONSTRAINT pk_HAS primary key (HobbysPersonUserID, HHobbyID),
+
     	CONSTRAINT fk_HAS_PERSON foreign key (HobbysPersonUserID) references PERSON(PersonUserID),
+	
     	CONSTRAINT fk_HAS_HOBBY foreign key (HHobbyID) references HOBBY(HobbyID)
+	
 
 EER DIAGRAM FOR LINKEDIN MODEL
 
