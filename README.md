@@ -492,7 +492,9 @@ STEP 8 MAPPING OF Multiple Relations and stuff
 
 STEP 9 MAPPING OF UNION TYPES
 
+RELATIONAL SCHEMA:
 
+![resim](https://user-images.githubusercontent.com/71318378/152636123-bb7421cf-b07b-4b17-a771-05c92deaf4e6.png)
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
