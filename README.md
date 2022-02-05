@@ -50,6 +50,11 @@ integration points for the database.
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+LinkedinMoodle EER Model:
+
+![finalLinkedinMoodleEERDesign drawio](https://user-images.githubusercontent.com/71318378/152636285-9ba91a95-063b-47e9-9b4b-264faad10d17.png)
+
+
 LinkedinMoodle
 
 ![resim](https://user-images.githubusercontent.com/71318378/152636222-1eb95a7d-f28c-405d-9e66-3d88c338f0cf.png)
